@@ -10,6 +10,10 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 
 function Content() {
+  const [data, setData] = React.useState([])
+
+
+
 
 
   const card3 = () => {
@@ -22,8 +26,8 @@ function Content() {
         style={styles.card1}
       >
         <div>
-          <div style={{ color: "white", marginBottom: 20 }}>12.5% of fee</div>
-          <div style={{ color: "#808191", fontSize: 16, marginBottom: 10 }}>
+          <div style={{ color: "white", marginBottom: 20, fontSize: 20, }}>12.5% of fee</div>
+          <div style={{ color: "#808191", fontSize: 18, marginBottom: 10 }}>
             Your Referral Link for xyz
           </div>
           <div style={{ flexDirection: "row", display: "flex", marginBottom: 20 }}>
@@ -36,6 +40,25 @@ function Content() {
       </Card>
     </div>)
   }
+
+
+  React.useEffect(() => {
+    fetch('https://raw.githubusercontent.com/akshita151199/APIs/main/data')
+      .then(response => response.json())
+      .then(json => setData(json))
+      .catch(error => console.error(error));
+
+
+  }, [])
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  function account_(string) {
+    return `${string.substr(0, 5)}..${string.substr(string.length - 7, 7)}`
+  }
+
+  console.log(">>>>>>>>>>>>>>", data);
 
 
   return (
@@ -99,7 +122,7 @@ function Content() {
             marginTop: 20, position: "relative"
           }}
         >
-          <img src={require("../assets/icons/logo2.png")} style={{ height: 220, width: 220, position: "absolute", bottom: -60, right: 200 }} />
+          <img src={require("../assets/icons/logo2.png")} style={{ height: 220, width: 220, position: "absolute", bottom: -60, right: 50 }} />
           <Card
             style={{
               backgroundColor: "#A3E3FF",
@@ -194,6 +217,89 @@ function Content() {
 
 
 
+
+
+        <div style={{ display: "flex", flexDirection: "row", marginTop: 30 }}>
+
+
+          <div
+            style={{
+              borderBottomWidth: 3,
+              borderColor: "#3772FF",
+
+              borderBottomStyle: "solid",
+              color: "#fff",
+              fontSize: 22,
+              fontWeight: "bold",
+              height: 40,
+
+              fontFamily: "Poppins"
+            }}
+          >
+            First Tab
+          </div>
+          <div
+            style={{
+              borderBottomWidth: 3,
+              borderColor: "#3772FF",
+              height: 40,
+
+              borderBottomStyle: "solid",
+              color: "#fff",
+              fontSize: 22,
+              fontWeight: "bold",
+
+              fontFamily: "Poppins", marginLeft: 30,
+            }}
+          >
+            Second Tab
+          </div>
+
+
+
+
+
+
+        </div><div style={{ width: "100%", backgroundColor: "#191B20", display: "flex", justifyContent: "space-between", fontFamily: "Poppins", borderRadius: 10, marginTop: 20, color: "white", fontSize: 14, paddingInline: 80 }}>
+
+          <p>ASSET</p>
+          <p>AMOUNT</p>
+          <p>USER ACCOUNT</p>
+          <p>REFERRAL EARNING</p>
+        </div>
+
+        {data?.data?.map((obj, index) => {
+          return (<div key={index} style={{ width: "100%", backgroundColor: "#191B20", display: "flex", justifyContent: "space-between", fontFamily: "Poppins", borderRadius: 10, marginTop: 5, color: "white", fontSize: 14, paddingInline: 80, paddingTop: 20, paddingBottom: 20 }}>
+            <div>
+
+
+
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <img src={obj.img} style={{ width: 40, height: 40, marginInline: 4, alignSelf: "center", display: "flex" }} />
+
+
+                <div> <div>{obj.asset}</div>
+                  <div style={{ color: "grey", display: "flex", flexDirection: "row", alignItems: "center" }}>{obj.type}
+                    <div style={{ backgroundColor: "grey", borderRadius: 10, marginLeft: 5, color: "white", fontSize: 10, textAlign: "center", display: "flex", flexDirection: "row", paddingInline: 2 }}>
+                      <img src={obj.chain.img} style={{ width: 10, height: 10, marginInline: 4, alignSelf: "center", display: "flex" }} />{obj.chain.name}</div>
+                  </div></div>
+
+
+              </div>
+            </div>
+            <div><div>{obj.amount} BNB</div><div style={{ color: "grey" }}>{capitalizeFirstLetter(obj.state)}</div></div>
+            <div><div>{account_(obj.user)}</div></div>
+            <div><div>{obj.referral_earnings}BNB</div><div style={{ color: "grey", alignContent: "center", display: "flex" }} s>View on BSC Scan   <OpenInNewIcon style={{ fontSize: 20, marginLeft: 5 }} /></div></div>
+          </div>
+          )
+        })}
+
+
+
+
+
+
+
       </div>
       <div style={{ width: 3, backgroundColor: "#242731" }} />
 
@@ -272,7 +378,7 @@ function Content() {
             <div
               style={styles.button2}
             >
-              <OpenInNewIcon style={{ fontSize: 20 }} />
+              <OpenInNewIcon style={{ fontSize: 20, }} />
               <div style={{ marginInline: 5 }}>Custom link</div>
             </div>
           </div>
@@ -280,7 +386,7 @@ function Content() {
             <div
               style={styles.button1}
             >
-              <LoginIcon style={{ fontSize: 20 }} />
+              <LoginIcon style={{ fontSize: 20, }} />
               <div style={{ marginInline: 5 }}>Cancel</div>
             </div>
           </div>
