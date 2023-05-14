@@ -8,6 +8,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 function Content() {
   const [data, setData] = React.useState([])
@@ -269,7 +271,7 @@ function Content() {
         </div>
 
         {data?.data?.map((obj, index) => {
-          return (<div key={index} style={{ width: "100%", backgroundColor: "#191B20", display: "flex", justifyContent: "space-between", fontFamily: "Poppins", borderRadius: 10, marginTop: 5, color: "white", fontSize: 14, paddingInline: 80, paddingTop: 20, paddingBottom: 20 }}>
+          return (<div key={index} style={{ width: "100%", backgroundColor: "#191B20", display: "flex", justifyContent: "space-between", fontFamily: "Poppins", borderRadius: 10, marginTop: 5, color: "white", fontSize: 14, paddingInline: 50, paddingTop: 20, paddingBottom: 20 }}>
             <div>
 
 
@@ -386,13 +388,12 @@ function Content() {
             <div
               style={styles.button1}
             >
-              <LoginIcon style={{ fontSize: 20, }} />
+              <LogoutIcon style={{ fontSize: 20, }} />
               <div style={{ marginInline: 5 }}>Cancel</div>
             </div>
           </div>
 
         </div>
-
 
 
 
