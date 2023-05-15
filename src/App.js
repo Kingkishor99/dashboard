@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import ResponsiveDrawer from "./components/Drawer";
 import React from "react";

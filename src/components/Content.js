@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
@@ -11,40 +11,8 @@ import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 function Content() {
-  const [Data, setData] = React.useState({
-    data: [
-      {
-        img:
-          "https://raw.githubusercontent.com/akshita151199/APIs/main/btc.png",
-        amount: 0.001,
-        asset: "Bitcoin",
-        chain: {
-          img:
-            "https://raw.githubusercontent.com/akshita151199/APIs/main/avax.png",
-          name: "AVAX",
-        },
-        referral_earnings: 0.001,
-        state: "expired",
-        type: "Put",
-        user: "0xFbEA9559AE33214a080c03c68EcF1D3AF0f58A7D",
-      },
-      {
-        img:
-          "https://raw.githubusercontent.com/akshita151199/APIs/main/btc.png",
-        amount: 0.001,
-        asset: "Bitcoin",
-        chain: {
-          img:
-            "https://raw.githubusercontent.com/akshita151199/APIs/main/avax.png",
-          name: "AVAX",
-        },
-        referral_earnings: 0.001,
-        state: "expired",
-        type: "Put",
-        user: "0xFbEA9559AE33214a080c03c68EcF1D3AF0f58A7D",
-      },
-    ],
-  });
+  const [Data, setData] = React.useState({});
+  const [tepm, setTemp] = useState([]);
 
   const card3 = () => {
     return (
@@ -79,19 +47,24 @@ function Content() {
     );
   };
 
-  // React.useEffect(() => {
-  //   async function fetchMyAPI() {
-  //     let response = await fetch(
-  //       "https://raw.githubusercontent.com/akshita151199/APIs/main/data"
-  //     );
-  //     response = await response.json();
-  //     setData(JSON.parse(JSON.stringify(response)));
+  const fetchMyAPI = async () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
-  //     // console.log("RESPONSE", typeof response.data);
-  //   }
+    fetch(
+      "https://raw.githubusercontent.com/akshita151199/APIs/main/data",
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => tepm(result.data))
+      .catch((error) => console.log("error", error));
+  };
 
-  //   fetchMyAPI();
-  // }, []);
+  React.useEffect(() => {
+    fetchMyAPI();
+  }, []);
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -99,8 +72,6 @@ function Content() {
   function account_(string) {
     return `${string.substr(0, 5)}..${string.substr(string.length - 7, 7)}`;
   }
-
-  console.log(">>>>>>>>>>>>>>", typeof Data.data);
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
@@ -333,7 +304,7 @@ function Content() {
           <p>REFERRAL EARNING</p>
         </div>
         {/* =============map============== */}
-        {/* {Data &&
+        {/* {Data.length &&
           Data?.data?.map((obj) => (
             // <div
             //   style={{
@@ -431,8 +402,9 @@ function Content() {
             //   </div>
             // </div>
 
-            <div style={{ color: "white" }}>hiiiii</div>
+            <div>hiiiii</div>
           ))} */}
+        {/* {tepm?.length && tepm.map((val, i) => <div>rrrrr</div>)} */}
       </div>
       <div style={{ width: 3, backgroundColor: "#242731" }} />
 
